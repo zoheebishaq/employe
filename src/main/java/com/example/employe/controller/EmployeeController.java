@@ -14,21 +14,25 @@ import java.util.List;
 public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
+
     @GetMapping("/")
     public String viewHomePage(Model model){
       return   findPaginated(1,"firstName","asc",model);
     }
+
     @GetMapping("/showNewEmployeeForm")
     public String showNewEmployeeForm(Model model){
         Employee employee = new Employee();
         model.addAttribute("employee",employee);
         return "new_employee";
     }
+
     @PostMapping("/saveEmployee")
     public String saveEmployee(@ModelAttribute("employee") Employee employee){
         employeeService.saveEmployee(employee);
         return "redirect:/";
     }
+
     @GetMapping("/showFormForUpdate/{id}")
     public String showFormForUpdate(@PathVariable(value = "id")Long id,Model model){
 
@@ -37,6 +41,7 @@ public class EmployeeController {
         model.addAttribute("employee",employee);
         return "new_employee";
     }
+
     @GetMapping("/deleteEmployee/{id}")
     public String deleteEmployee(@PathVariable(value = "id") Long id){
         this.employeeService.deleteEmployeeById(id);
